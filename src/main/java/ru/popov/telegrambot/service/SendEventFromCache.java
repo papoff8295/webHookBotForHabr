@@ -19,13 +19,15 @@ import java.util.Timer;
 public class SendEventFromCache {
 
     private final EventCashDAO eventCashDAO;
+    private final TelegramBot telegramBot;
 
     @Value("${telegrambot.adminId}")
     private int admin_id;
 
     @Autowired
-    public SendEventFromCache(EventCashDAO eventCashDAO) {
+    public SendEventFromCache(EventCashDAO eventCashDAO, TelegramBot telegramBot) {
         this.eventCashDAO = eventCashDAO;
+        this.telegramBot = telegramBot;
     }
 
     @PostConstruct
@@ -33,7 +35,7 @@ public class SendEventFromCache {
     //after every restart app  - check unspent events
     private void afterStart() {
         List<EventCashEntity> list = eventCashDAO.findAllEventCash();
-        TelegramBot telegramBot = ApplicationContextProvider.getApplicationContext().getBean(TelegramBot.class);
+
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(admin_id));
         sendMessage.setText("Произошла перезагрузка!");
