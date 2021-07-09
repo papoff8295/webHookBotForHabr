@@ -1,6 +1,7 @@
 package ru.popov.telegrambot.model.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -35,6 +36,9 @@ public class EventHandler {
     private final UserDAO userDAO;
     private final EventDAO eventDAO;
     private final MenuService menuService;
+
+    @Value("${telegrambot.adminId}")
+    private int admin_id;
 
     @Autowired
     public EventHandler(BotStateCash botStateCash, EventCash eventCash, UserDAO userDAO, EventDAO eventDAO, MenuService menuService) {
@@ -308,7 +312,7 @@ public class EventHandler {
     //return event from database
     private Event enterNumberEvent(String message, long userId) throws NumberFormatException, NullPointerException, EntityNotFoundException {
         List<Event> list;
-        if (userId == 39376213) {
+        if (userId == admin_id) {
             // =))
             list = eventDAO.findAllEvent();
         } else {

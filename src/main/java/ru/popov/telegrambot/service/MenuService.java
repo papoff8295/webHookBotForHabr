@@ -2,6 +2,7 @@ package ru.popov.telegrambot.service;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -22,6 +23,9 @@ import java.util.List;
 public class MenuService {
 
     private UserDAO userDAO;
+
+    @Value("${telegrambot.adminId}")
+    private int admin_id;
 
     public MenuService(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -54,7 +58,7 @@ public class MenuService {
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);
-        if (userId == 39376213) {
+        if (userId == admin_id) {
             KeyboardRow row4 = new KeyboardRow();
             row4.add(new KeyboardButton("All users"));
             row4.add(new KeyboardButton("All events"));

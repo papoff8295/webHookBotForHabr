@@ -16,8 +16,9 @@ public class TelegramFacade {
     private final MessageHandler messageHandler;
     private final CallbackQueryHandler callbackQueryHandler;
     private final BotStateCash botStateCash;
-    @Value("${telegrambot.chatId}")
-    int chatId;
+
+    @Value("${telegrambot.adminId}")
+    int adminId;
 
 
     public TelegramFacade(MessageHandler messageHandler, CallbackQueryHandler callbackQueryHandler, BotStateCash botStateCash) {
@@ -61,12 +62,12 @@ public class TelegramFacade {
                 botState = BotState.ONEVENT;
                 break;
             case "All users":
-                if (message.getFrom().getId() == chatId)
+                if (message.getFrom().getId() == adminId)
                 botState = BotState.ALLUSERS;
                 else botState = BotState.START;
                 break;
             case "All events":
-                if (message.getFrom().getId() == chatId)
+                if (message.getFrom().getId() == adminId)
                 botState = BotState.ALLEVENTS;
                 else botState = BotState.START;
                 break;
