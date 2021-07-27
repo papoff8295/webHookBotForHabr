@@ -1,5 +1,7 @@
 package ru.popov.telegrambot.model;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -11,11 +13,12 @@ import ru.popov.telegrambot.model.handler.CallbackQueryHandler;
 import ru.popov.telegrambot.model.handler.MessageHandler;
 
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TelegramFacade {
 
-    private final MessageHandler messageHandler;
-    private final CallbackQueryHandler callbackQueryHandler;
-    private final BotStateCash botStateCash;
+    final MessageHandler messageHandler;
+    final CallbackQueryHandler callbackQueryHandler;
+    final BotStateCash botStateCash;
 
     @Value("${telegrambot.adminId}")
     int adminId;

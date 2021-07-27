@@ -55,13 +55,14 @@ public class EventService {
                         if (day == day1 && month == month1 && year == year1) {
                             eventDAO.remove(event);
                             return true;
-                        }
+                        }else
+                            return false;
                     case "EVERYDAY":
                         return true;
                     case "MONTH":
-                        if (day == day1) return true;
+                        return day == day1;
                     case "YEAR":
-                        if (day == day1 && month == month1) return true;
+                        return day == day1 && month == month1;
                     default: return false;
                 }
             } else return false;
