@@ -148,6 +148,7 @@ public class EventHandler {
     //get a list of all events(only admin)
     public BotApiMethod<?> allEvents(long userId) {
         List<Event> list = eventDAO.findAllEvent();
+        botStateCash.saveBotState(userId, BotState.START);
         return eventListBuilder(userId, list);
     }
 
@@ -185,6 +186,7 @@ public class EventHandler {
         }
         replyMessage.setText(builder.toString());
         replyMessage.setReplyMarkup(menuService.getInlineMessageButtonsAllUser());
+        botStateCash.saveBotState(userId, BotState.START);
         return replyMessage;
     }
 
